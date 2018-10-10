@@ -78,7 +78,7 @@ export class LearningComponent implements OnInit {
 
   stopTrack(): void {
     this.playing = false;
-    this.audioPlayerRef.nativeElement.stop();
+    this.audioPlayerRef.nativeElement.pause();
   }
 
   toggleTrack() {
@@ -89,8 +89,15 @@ export class LearningComponent implements OnInit {
     }
   }
 
+  toggleRandomizeTracks(){
+   this.randomize = !this.randomize;
+  }
+
   log() {
     return JSON.stringify(this.currentTrack);
   }
 
+  async downloadTrack() {
+    await this.learningService.downloadTrack(this.currentTrack.index + 1);
+  }
 }

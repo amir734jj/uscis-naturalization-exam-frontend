@@ -20,28 +20,28 @@
             <i class="icon-fast-forward icon-2x"></i>
         </button>
 
-        <button type="button" class="btn btn-default btn-lg" title="Randomize Playing"><i
-                class="icon-random icon-2x"></i>
+        <button type="button" class="btn btn-default btn-lg" title="Randomize Playing" *ngIf="randomize" (click)="toggleRandomizeTracks()">
+            <i class="icon-random icon-2x"></i>
         </button>
-        <button type="button" class="btn btn-default btn-lg" title="Series Playing"><i
-                class="icon-exchange icon-2x"></i>
+
+        <button type="button" class="btn btn-default btn-lg" title="Series Playing" *ngIf="!randomize" (click)="toggleRandomizeTracks()">
+            <i class="icon-exchange icon-2x"></i>
         </button>
 
         <button type="button" class="btn btn-default btn-lg" title="Play Each Track Once">
             <strong>1</strong>
         </button>
+
         <button type="button" class="btn btn-default btn-lg" title="Play Each Track Twice">
             <strong>2</strong>
         </button>
+
         <button type="button" class="btn btn-default btn-lg" title="Play Each Track Three Times">
             <strong>3</strong>
         </button>
 
-        <button class="btn btn-default btn-lg" title="Save Current Track"><i
-                class="icon-save icon-2x"></i>
-        </button>
-        <button class="btn btn-default btn-lg" title="Load Saved Track"><i
-                class="icon-download-alt icon-2x"></i>
+        <button class="btn btn-default btn-lg" title="Download Track" (click)="downloadTrack().then()">
+            <i class="icon-download-alt icon-2x"></i>
         </button>
     </div>
 
