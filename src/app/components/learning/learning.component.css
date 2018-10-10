@@ -1,0 +1,11 @@
+.full-width {
+    width: 100% !important;
+}
+
+.normalized-btn-group > button {
+    height: 6rem;
+}
+
+.clear-fix {
+    height: 3rem !important;
+}

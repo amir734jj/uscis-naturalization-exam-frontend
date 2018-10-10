@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>{{question.question}}</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="list-group">
+                    <button *ngFor="let answerVal of question.choices"
+                            class="list-group-item {{cssClassHelper(answerVal)}}"
+                            (click)="validateAnswer(answerVal)">
+                        {{answerVal}}
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="question-control">
+                    <button type="button" class="btn btn-danger" (click)="previousQuestion()">Previous Question</button>
+                    <button type="button" class="btn btn-primary" (click)="nextQuestion()">Next Question</button>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <div class="list-group">
+                        <li type="button" class="list-group-item">
+                            Total questions answered: {{timeLine.length}}
+                        </li>
+                        <li type="button" class="list-group-item">
+                            Correct answers: {{status().correct}}
+                        </li>
+                        <li type="button" class="list-group-item">
+                            In-Correct answers: {{status().incorrect}}
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
