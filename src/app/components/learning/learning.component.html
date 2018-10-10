@@ -1,5 +1,5 @@
 <h4 class="clear-fix">
-    {{ currentTrack.question }}
+    (#{{currentTrack.index}}) {{ currentTrack.question }}
 </h4>
 
 <audio class="full-width" controls #audioOption>
@@ -10,7 +10,7 @@
 
 <div class="text-center">
     <div class="btn-group normalized-btn-group">
-        <button type="button" class="btn btn-default btn-lg" title="Play Previous Track" (click)="previousTrack()">
+        <button type="button" class="btn btn-default btn-lg" title="Play Previous Track" (click)="previousTrack()" [disabled]="index === 0">
             <i class="icon-fast-backward icon-2x"></i>
         </button>
         <button type="button" class="btn btn-default btn-lg" title="Pause Playing" (click)="toggleTrack()">
@@ -28,16 +28,8 @@
             <i class="icon-exchange icon-2x"></i>
         </button>
 
-        <button type="button" class="btn btn-default btn-lg" title="Play Each Track Once">
-            <strong>1</strong>
-        </button>
-
-        <button type="button" class="btn btn-default btn-lg" title="Play Each Track Twice">
-            <strong>2</strong>
-        </button>
-
-        <button type="button" class="btn btn-default btn-lg" title="Play Each Track Three Times">
-            <strong>3</strong>
+        <button type="button" class="btn btn-default btn-lg" (click)="toggleRepeatCount()">
+            <strong><i class="icon-repeat icon-2x"></i> {{repeatCount.total}}</strong>
         </button>
 
         <button class="btn btn-default btn-lg" title="Download Track" (click)="downloadTrack().then()">
@@ -75,5 +67,3 @@
         </table>
     </div>
 </div>
-
-{{log()}}

@@ -349,6 +349,7 @@ export class MaterialUtility {
         const item = material[index];
 
         return {
+          index,
           question: item.question,
           answer: item.answer,
           choices: MaterialUtility.shuffle(

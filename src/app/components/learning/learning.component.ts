@@ -19,6 +19,16 @@ export class LearningComponent implements OnInit {
   private binderAudioRefListener = false;
   private playing = false;
 
+  private repeatCount: {
+    options: number[],
+    total: number,
+    soFar: number,
+  } = {
+    options: [1, 2, 3],
+    total: 3,
+    soFar: 1
+  };
+
   constructor(private materialUtility: MaterialUtility, private learningService: LearningService) {
     this.materialUtility = materialUtility;
     this.learningService = learningService;
@@ -28,7 +38,13 @@ export class LearningComponent implements OnInit {
   ngOnInit() {
     if (!this.binderAudioRefListener) {
       this.audioPlayerRef.nativeElement.addEventListener('ended', () => {
-        this.nextTrack();
+        this.repeatCount.soFar++;
+
+        if (this.repeatCount.soFar === this.repeatCount.total) {
+          this.nextTrack();
+        } else {
+          this.resetTrack();
+        }
       }, false);
 
       this.binderAudioRefListener = true;
@@ -46,14 +62,17 @@ export class LearningComponent implements OnInit {
     if (this.timeLine.length === 0) {
       this.currentTrack = this.materialUtility.randomItemInRange(-1);
       this.timeLine.push(this.currentTrack);
-    } else if (this.timeLine.length !== 0 && this.index < this.timeLine.length - 1) {
+    } else if (this.index + 1 === this.timeLine.length) {
       this.timeLine.push(this.currentTrack);
       this.currentTrack = this.materialUtility
         .randomItemInRange(!this.randomize && this.currentTrack ? this.currentTrack.index : undefined);
-    } else {
+      this.index++;
+    } else if (this.index + 1 < this.timeLine.length) {
       this.index++;
       this.currentTrack = this.timeLine[this.index];
     }
+
+    this.repeatCount.soFar = 1;
   }
 
   itemToStreamUrl(item: typeof LearningComponent.item) {
@@ -93,11 +112,18 @@ export class LearningComponent implements OnInit {
    this.randomize = !this.randomize;
   }
 
-  log() {
-    return JSON.stringify(this.currentTrack);
-  }
-
   async downloadTrack() {
     await this.learningService.downloadTrack(this.currentTrack.index + 1);
+  }
+
+  resetTrack() {
+    this.stopTrack();
+    this.audioPlayerRef.nativeElement.currentTime = 0;
+    this.playTrack();
+  }
+
+  toggleRepeatCount() {
+    const index = this.repeatCount.options.indexOf(this.repeatCount.total) + 1;
+    this.repeatCount.total = this.repeatCount.options[index % this.repeatCount.options.length];
   }
 }

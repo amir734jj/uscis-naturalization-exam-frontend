@@ -17,7 +17,8 @@ export class TestingComponent implements OnInit {
   private answer: MultipleChoiceAnswer = {
     questionRef: null,
     answerVal: '',
-    result: false
+    result: false,
+    index: -1
   };
   private materialUtility: MaterialUtility;
   private testingService: TestingService;
@@ -61,7 +62,8 @@ export class TestingComponent implements OnInit {
       this.answer = {
         questionRef: this.question,
         answerVal: '',
-        result: false
+        result: false,
+        index: -1
       };
       this.currentTimeLineIndex = this.timeLine.length - 1;
     }
@@ -75,7 +77,8 @@ export class TestingComponent implements OnInit {
       this.answer = {
         questionRef: this.question,
         answerVal: answer,
-        result: this.question.answer === answer
+        result: this.question.answer === answer,
+        index: this.question.index
       };
 
       return this.answer.result;
