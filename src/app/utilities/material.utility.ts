@@ -335,7 +335,7 @@ export class MaterialUtility {
     randomItemInRange(previousIndex: number = -1): { question: string; answer: string, index: number } {
       let index: number;
 
-      if (false && previousIndex === -1) {
+      if (previousIndex === -1) {
         index = Math.floor(Math.random() * material.length);
       } else {
         index = (previousIndex + 1) % material.length;

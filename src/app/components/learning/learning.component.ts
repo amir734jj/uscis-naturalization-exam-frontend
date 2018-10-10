@@ -12,9 +12,9 @@ export class LearningComponent implements OnInit {
   private static item: { question: string; answer: string, index: number } = null;
 
   timeLine: Array<typeof LearningComponent.item> = [];
-  private currentTrack: typeof LearningComponent.item;
+  private currentTrack: typeof LearningComponent.item = { question: '', answer: '', index: -1 };
   private index = 0;
-  private randomize = true;
+  private randomize = false;
   @ViewChild('audioOption') audioPlayerRef: ElementRef;
   private binderAudioRefListener = false;
   private playing = false;
@@ -49,7 +49,7 @@ export class LearningComponent implements OnInit {
     } else if (this.timeLine.length !== 0 && this.index < this.timeLine.length - 1) {
       this.timeLine.push(this.currentTrack);
       this.currentTrack = this.materialUtility
-        .randomItemInRange(!this.randomize && this.currentTrack ? this.currentTrack.index + 1 : undefined);
+        .randomItemInRange(!this.randomize && this.currentTrack ? this.currentTrack.index : undefined);
     } else {
       this.index++;
       this.currentTrack = this.timeLine[this.index];

@@ -20,11 +20,11 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
     HttpClientModule,
     FormsModule,
     TestingModule,
     LearningModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
