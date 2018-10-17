@@ -5,13 +5,13 @@ let HOST: string;
 
 if (environment.production) {
     PORT = 80;
-    HOST = '';
+    HOST = 'http://uscis-naturalization.herokuapp.com';
 } else {
     PORT = 5000;
-    HOST = 'localhost';
+    HOST = 'http://localhost';
 }
 
-const VIEW_ADDRESS = `http://${HOST}:${PORT}`;
-const API_ADDRESS = `http://${HOST}:${PORT}/api`;
+const VIEW_ADDRESS = `${HOST}:${PORT}`;
+const API_ADDRESS = `${VIEW_ADDRESS}/api`;
 
 export { VIEW_ADDRESS, API_ADDRESS, PORT, HOST };

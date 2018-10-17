@@ -1,0 +1,14 @@
+<ng-template #templateRef>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Error</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+      <span aria-hidden="true">X</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <alert type="danger">
+      <h4>Error! Failed to connect to the backend API</h4>
+      <h5>Make sure the port number matched back-end port number</h5>
+    </alert>
+  </div>
+</ng-template>

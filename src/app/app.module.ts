@@ -9,12 +9,17 @@ import {TestingModule} from './modules/testing.module';
 import {LearningModule} from './modules/learning.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './components/identity/login/login.component';
+import { RegisterComponent } from './components/identity/register/register.component';
+import { LogoutComponent } from './components/identity/logout/logout.component';
+import {IdentityModule} from './modules/identity.module';
+import {CommonComponentsModules} from './modules/common.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     RouteNotFoundComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +28,8 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     TestingModule,
     LearningModule,
+    IdentityModule,
+    CommonComponentsModules,
     ReactiveFormsModule,
   ],
   providers: [],

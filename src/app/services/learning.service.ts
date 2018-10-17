@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {VIEW_ADDRESS} from '../constants/api.roures';
+import {VIEW_ADDRESS} from '../constants/api.routes';
 import {HttpClient} from '@angular/common/http';
 import * as download from 'downloadjs';
 
