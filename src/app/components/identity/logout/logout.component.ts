@@ -19,7 +19,7 @@ export class LogoutComponent implements OnInit {
     const result = await this.identityService.logOut();
 
     if (result) {
-      await this.router.navigate(['./']);
+      await this.router.navigate(['./home']);
     }
   }
 
