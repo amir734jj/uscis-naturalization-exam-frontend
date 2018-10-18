@@ -123,10 +123,6 @@ export class TestingComponent implements OnInit {
     await this.testingService.updateScore(this.answer.result ? 1 : -1);
   }
 
-  log() {
-    return JSON.stringify(this.timeLine);
-  }
-
   status() {
     return {
       correct: this.timeLine.filter(x => x.result).length,
