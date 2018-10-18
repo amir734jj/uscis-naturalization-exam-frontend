@@ -15,7 +15,7 @@ export class TestingService {
   async updateScore(offset: number): Promise<Object> {
     const uri = `${this.host}`;
 
-    const result = await this.httpClient.put(uri, {offset});
+    const result: Object = await this.httpClient.put(uri, {offset}).toPromise();
 
     return result;
   }
