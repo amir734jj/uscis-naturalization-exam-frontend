@@ -12,8 +12,8 @@ import {TestingService} from '../../services/testing.service';
 export class TestingComponent implements OnInit {
   responseTypeEnum: typeof ResponseTypeEnum = ResponseTypeEnum;
   private currentTimeLineIndex = 0;
-  private timeLine: Array<MultipleChoiceAnswer> = [];
-  private question: MultipleChoiceQuestion;
+  timeLine: Array<MultipleChoiceAnswer> = [];
+  question: MultipleChoiceQuestion;
   private answer: MultipleChoiceAnswer = {
     questionRef: null,
     answerVal: '',
@@ -26,7 +26,7 @@ export class TestingComponent implements OnInit {
   constructor(materialUtility: MaterialUtility, testingService: TestingService) {
     this.materialUtility = materialUtility;
     this.testingService = testingService;
-    this.nextQuestion();
+    this.nextQuestion().then();
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class TestingComponent implements OnInit {
     }
   }
 
-  nextQuestion() {
+  async nextQuestion() {
     if (this.currentTimeLineIndex < this.timeLine.length && this.currentTimeLineIndex + 1 < this.timeLine.length) {
       this.currentTimeLineIndex++;
 
@@ -55,7 +55,7 @@ export class TestingComponent implements OnInit {
       }
 
       // Update the score
-      this.updateScoreApi().then();
+      await this.updateScoreApi();
 
       // Set the question pointer
       this.question = this.materialUtility.getRandomQuestion();

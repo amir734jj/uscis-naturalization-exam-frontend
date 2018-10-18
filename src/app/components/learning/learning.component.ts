@@ -12,14 +12,14 @@ export class LearningComponent implements OnInit {
   private static item: { question: string; answer: string, index: number } = null;
 
   timeLine: Array<typeof LearningComponent.item> = [];
-  private currentTrack: typeof LearningComponent.item = { question: '', answer: '', index: -1 };
-  private index = 0;
-  private randomize = false;
+  currentTrack: typeof LearningComponent.item = { question: '', answer: '', index: -1 };
+  index = 0;
+  randomize = false;
   @ViewChild('audioOption') audioPlayerRef: ElementRef;
   private binderAudioRefListener = false;
-  private playing = false;
+  playing = false;
 
-  private repeatCount: {
+  repeatCount: {
     options: number[],
     total: number,
     soFar: number,
