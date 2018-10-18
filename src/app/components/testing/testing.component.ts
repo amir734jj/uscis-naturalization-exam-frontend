@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MaterialUtility} from '../../utilities/material.utility';
 import {MultipleChoiceAnswer, MultipleChoiceQuestion} from '../../models/MultipleChoice';
 import {ResponseTypeEnum} from '../../models/ResponseTypeEnum';
-import {TestingService} from '../../services/testing.service';
+import {ScoreService} from '../../services/score.service';
 
 @Component({
   selector: 'app-testing',
@@ -21,9 +21,9 @@ export class TestingComponent implements OnInit {
     index: -1
   };
   private materialUtility: MaterialUtility;
-  private testingService: TestingService;
+  private testingService: ScoreService;
 
-  constructor(materialUtility: MaterialUtility, testingService: TestingService) {
+  constructor(materialUtility: MaterialUtility, testingService: ScoreService) {
     this.materialUtility = materialUtility;
     this.testingService = testingService;
     this.nextQuestion().then();
