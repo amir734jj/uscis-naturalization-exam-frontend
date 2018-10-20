@@ -1,69 +1,71 @@
-<h4 class="clear-fix">
-    (#{{currentTrack.index}}) {{ currentTrack.question }}
-</h4>
+<div class="container">
+    <h4 class="clear-fix">
+        (#{{currentTrack.index}}) {{ currentTrack.question }}
+    </h4>
 
-<audio class="full-width" controls #audioOption>
-    <source src="{{itemToStreamUrl(currentTrack)}}" type="audio/mpeg">
-</audio>
-
-<div class="clear-fix"></div>
-
-<div class="text-center">
-    <div class="btn-group normalized-btn-group">
-        <button type="button" class="btn btn-default btn-lg" title="Play Previous Track" (click)="previousTrack()" [disabled]="index === 0">
-            <i class="icon-fast-backward icon-2x"></i>
-        </button>
-        <button type="button" class="btn btn-default btn-lg" title="Pause Playing" (click)="toggleTrack()">
-            <i class="{{playing ? 'icon-pause' : 'icon-play'}} icon-2x"></i>
-        </button>
-        <button type="button" class="btn btn-default btn-lg" title="Play Forwarding Track" (click)="nextTrack()">
-            <i class="icon-fast-forward icon-2x"></i>
-        </button>
-
-        <button type="button" class="btn btn-default btn-lg" title="Randomize Playing" *ngIf="randomize" (click)="toggleRandomizeTracks()">
-            <i class="icon-random icon-2x"></i>
-        </button>
-
-        <button type="button" class="btn btn-default btn-lg" title="Series Playing" *ngIf="!randomize" (click)="toggleRandomizeTracks()">
-            <i class="icon-exchange icon-2x"></i>
-        </button>
-
-        <button type="button" class="btn btn-default btn-lg" (click)="toggleRepeatCount()">
-            <strong><i class="icon-repeat icon-2x"></i> {{repeatCount.total}}</strong>
-        </button>
-
-        <button class="btn btn-default btn-lg" title="Download Track" (click)="downloadTrack().then()">
-            <i class="icon-download-alt icon-2x"></i>
-        </button>
-    </div>
+    <audio class="full-width" controls #audioOption>
+        <source src="{{itemToStreamUrl(currentTrack)}}" type="audio/mpeg">
+    </audio>
 
     <div class="clear-fix"></div>
 
-    <div class="container-fluid">
-        <div class="col-md-6">
-            <img [src]="itemToImageUrl(currentTrack).front" class="full-width" alt="front" />
-        </div>
-        <div class="col-md-6">
-            <img [src]="itemToImageUrl(currentTrack).back" class="full-width" alt="back" />
-        </div>
-    </div>
+    <div class="text-center">
+        <div class="btn-group normalized-btn-group">
+            <button type="button" class="btn btn-default btn-lg" title="Play Previous Track" (click)="previousTrack()" [disabled]="index === 0">
+                <i class="icon-fast-backward icon-2x"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-lg" title="Pause Playing" (click)="toggleTrack()">
+                <i class="{{playing ? 'icon-pause' : 'icon-play'}} icon-2x"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-lg" title="Play Forwarding Track" (click)="nextTrack()">
+                <i class="icon-fast-forward icon-2x"></i>
+            </button>
 
-    <div class="clear-fix"></div>
+            <button type="button" class="btn btn-default btn-lg" title="Randomize Playing" *ngIf="randomize" (click)="toggleRandomizeTracks()">
+                <i class="icon-random icon-2x"></i>
+            </button>
 
-    <div class="container-fluid">
-        <table class="table table-bordered" *ngIf="timeLine.length > 0">
-            <thead>
+            <button type="button" class="btn btn-default btn-lg" title="Series Playing" *ngIf="!randomize" (click)="toggleRandomizeTracks()">
+                <i class="icon-exchange icon-2x"></i>
+            </button>
+
+            <button type="button" class="btn btn-default btn-lg" (click)="toggleRepeatCount()">
+                <strong><i class="icon-repeat icon-2x"></i> {{repeatCount.total}}</strong>
+            </button>
+
+            <button class="btn btn-default btn-lg" title="Download Track" (click)="downloadTrack().then()">
+                <i class="icon-download-alt icon-2x"></i>
+            </button>
+        </div>
+
+        <div class="clear-fix"></div>
+
+        <div class="container-fluid">
+            <div class="col-md-6">
+                <img [src]="itemToImageUrl(currentTrack).front" class="full-width" alt="front" />
+            </div>
+            <div class="col-md-6">
+                <img [src]="itemToImageUrl(currentTrack).back" class="full-width" alt="back" />
+            </div>
+        </div>
+
+        <div class="clear-fix"></div>
+
+        <div class="container-fluid">
+            <table class="table table-bordered" *ngIf="timeLine.length > 0">
+                <thead>
                 <tr>
                     <th>Number</th>
                     <th>Question</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr *ngFor="let item of timeLine.reverse()">
                     <td> {{ item.index + 1 }} </td>
                     <td> {{ item.question }}</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

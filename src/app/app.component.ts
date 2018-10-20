@@ -13,7 +13,6 @@ export class AppComponent {
   constructor(private identityService: IdentityService, private authenticationUtility: AuthenticationUtility) { }
 
   isAuthenticated() {
-    // return await this.identityService.isAuthenticated();
     return this.authenticationUtility.getIsAuthenticated();
   }
 }

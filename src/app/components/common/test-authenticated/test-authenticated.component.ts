@@ -11,11 +11,7 @@ export class TestAuthenticatedComponent implements OnInit {
 
   constructor(private identityService: IdentityService, private authenticationUtility: AuthenticationUtility) {
     this.identityService.isAuthenticated()
-      .then(x => {
-        this.authenticationUtility.setIsAuthenticated(true);
-      }).catch(() => {
-      this.authenticationUtility.setIsAuthenticated(false);
-    });
+      .then(x => this.authenticationUtility.setIsAuthenticated(x));
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ScoreService} from '../../services/score.service';
 import {ScoreInfo} from '../../models/ScoreInfo';
-import {IdentityService} from '../../services/identity.service';
+import {AuthenticationUtility} from '../../utilities/authentication.utility';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +9,16 @@ import {IdentityService} from '../../services/identity.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private scoreInfo: ScoreInfo;
-  private authenticated: boolean;
+  scoreInfo: ScoreInfo;
+  authenticated: boolean;
 
-  constructor(private scoreService: ScoreService, private identityService: IdentityService) {
+  constructor(private scoreService: ScoreService, private authenticationUtility: AuthenticationUtility) {
     this.authenticated = false;
   }
 
   async ngOnInit() {
     this.updateScoreInfo().then();
-    this.authenticated = !!(await this.identityService.isAuthenticated());
+    this.authenticated = await this.authenticationUtility.getIsAuthenticated();
   }
 
   async updateScoreInfo() {

@@ -18,7 +18,14 @@ export class IdentityService {
   async isAuthenticated() {
     const uri = `${this.host}/isAuthenticated`;
 
-    return await this.httpClient.get(uri, { responseType: 'text'}).toPromise();
+    try {
+
+      await this.httpClient.get(uri, {responseType: 'text'}).toPromise();
+      return true;
+
+    } catch (err) {
+      return false;
+    }
   }
 
   async logIn(username: string, password: string) {

@@ -14,7 +14,7 @@ export class TestingComponent implements OnInit {
   private currentTimeLineIndex = 0;
   timeLine: Array<MultipleChoiceAnswer> = [];
   question: MultipleChoiceQuestion;
-  private answer: MultipleChoiceAnswer = {
+  answer: MultipleChoiceAnswer = {
     questionRef: null,
     answerVal: '',
     result: false,
