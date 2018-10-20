@@ -4,7 +4,7 @@
     </h4>
 
     <audio class="full-width" controls #audioOption>
-        <source src="{{itemToStreamUrl(currentTrack)}}" type="audio/mpeg">
+        <source [src]="itemToStreamUrl(currentTrack)" type="audio/mpeg">
     </audio>
 
     <div class="clear-fix"></div>
@@ -38,7 +38,12 @@
             </button>
         </div>
 
-        <div class="clear-fix"></div>
+        <div class="clear-fix">
+        </div>
+
+        <div class="progress">
+            <progressbar [max]="100" [value]="progressBarValue.value"></progressbar>
+        </div>
 
         <div class="container-fluid">
             <div class="col-md-6">

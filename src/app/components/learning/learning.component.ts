@@ -18,6 +18,7 @@ export class LearningComponent implements OnInit {
   @ViewChild('audioOption') audioPlayerRef: ElementRef;
   private binderAudioRefListener = false;
   playing = false;
+  progressBarValue: { max: number, value: number} = { max: 100, value: 0 };
 
   repeatCount: {
     options: number[],
@@ -32,7 +33,6 @@ export class LearningComponent implements OnInit {
   constructor(private materialUtility: MaterialUtility, private learningService: LearningService) {
     this.materialUtility = materialUtility;
     this.learningService = learningService;
-    this.nextTrack();
   }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class LearningComponent implements OnInit {
       this.audioPlayerRef.nativeElement.addEventListener('ended', () => {
         this.repeatCount.soFar++;
 
-        if (this.repeatCount.soFar === this.repeatCount.total) {
+        if (this.repeatCount.soFar >= this.repeatCount.total) {
           this.nextTrack();
         } else {
           this.resetTrack();
@@ -49,12 +49,16 @@ export class LearningComponent implements OnInit {
 
       this.binderAudioRefListener = true;
     }
+
+    this.nextTrack();
   }
 
   previousTrack() {
     if (this.index - 1 >= 0) {
       this.index--;
       this.currentTrack = this.timeLine[this.index];
+      this.stopTrack();
+      this.playTrack();
     }
   }
 
@@ -72,7 +76,10 @@ export class LearningComponent implements OnInit {
       this.currentTrack = this.timeLine[this.index];
     }
 
-    this.repeatCount.soFar = 1;
+    this.repeatCount.soFar = 0;
+    this.progressBarValue.value = (this.repeatCount.soFar / this.repeatCount.total) * 100;
+    this.stopTrack();
+    this.playTrack();
   }
 
   itemToStreamUrl(item: typeof LearningComponent.item) {
@@ -92,6 +99,7 @@ export class LearningComponent implements OnInit {
 
   playTrack(): void {
     this.playing = true;
+    this.audioPlayerRef.nativeElement.load();
     this.audioPlayerRef.nativeElement.play();
   }
 
