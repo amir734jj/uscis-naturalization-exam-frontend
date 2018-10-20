@@ -41,8 +41,10 @@ export class LearningComponent implements OnInit {
         this.repeatCount.soFar++;
 
         if (this.repeatCount.soFar >= this.repeatCount.total) {
+          this.resetProgressBar();
           this.nextTrack();
         } else {
+          this.updateProgressBar();
           this.resetTrack();
         }
       }, false);
@@ -51,6 +53,8 @@ export class LearningComponent implements OnInit {
     }
 
     this.nextTrack();
+    this.stopTrack();
+    this.updateProgressBar();
   }
 
   previousTrack() {
@@ -58,6 +62,7 @@ export class LearningComponent implements OnInit {
       this.index--;
       this.currentTrack = this.timeLine[this.index];
       this.stopTrack();
+      this.loadTrack();
       this.playTrack();
     }
   }
@@ -77,8 +82,8 @@ export class LearningComponent implements OnInit {
     }
 
     this.repeatCount.soFar = 0;
-    this.progressBarValue.value = (this.repeatCount.soFar / this.repeatCount.total) * 100;
     this.stopTrack();
+    this.loadTrack();
     this.playTrack();
   }
 
@@ -97,9 +102,12 @@ export class LearningComponent implements OnInit {
     };
   }
 
+  loadTrack(): void {
+    this.audioPlayerRef.nativeElement.load();
+  }
+
   playTrack(): void {
     this.playing = true;
-    this.audioPlayerRef.nativeElement.load();
     this.audioPlayerRef.nativeElement.play();
   }
 
@@ -133,5 +141,16 @@ export class LearningComponent implements OnInit {
   toggleRepeatCount() {
     const index = this.repeatCount.options.indexOf(this.repeatCount.total) + 1;
     this.repeatCount.total = this.repeatCount.options[index % this.repeatCount.options.length];
+  }
+
+  updateProgressBar() {
+    const correctedScale = this.repeatCount.soFar;
+    this.progressBarValue.value = Math.floor((correctedScale / this.repeatCount.total) * 100);
+    this.progressBarValue.value = this.progressBarValue.value > this.progressBarValue.max ?
+      this.progressBarValue.max : this.progressBarValue.value;
+  }
+
+  resetProgressBar() {
+    this.progressBarValue.value = 0;
   }
 }
