@@ -1,3 +1,28 @@
-<p>
-  home works!
-</p>
+<div *ngIf="authenticated && scoreInfo && scoreInfo.board && scoreInfo.score">
+    <h4>Your current score: {{scoreInfo.score}}</h4>
+
+    <div class="container">
+        <h4>Score board table</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let info of scoreInfo.board | keyvalue">
+                    <td>{{info.key}}</td>
+                    <td>{{info.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div *ngIf="!authenticated">
+
+    <h4>Welcome to USCIS Naturalization practice website!</h4>
+
+</div>

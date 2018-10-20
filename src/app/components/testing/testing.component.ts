@@ -50,12 +50,14 @@ export class TestingComponent implements OnInit {
       this.question = this.timeLine[this.currentTimeLineIndex].questionRef;
       this.answer = this.timeLine[this.currentTimeLineIndex];
     } else {
-      if (this.question && this.question.answer !== '') {
-        this.timeLine.push(this.answer);
-      }
+      const isFirstQuestion = this.question && this.question.answer !== '';
 
-      // Update the score
-      await this.updateScoreApi();
+      if (isFirstQuestion) {
+        this.timeLine.push(this.answer);
+
+        // Update the score
+        await this.updateScoreApi();
+      }
 
       // Set the question pointer
       this.question = this.materialUtility.getRandomQuestion();
@@ -65,6 +67,7 @@ export class TestingComponent implements OnInit {
         result: false,
         index: -1
       };
+
       this.currentTimeLineIndex = this.timeLine.length - 1;
     }
   }

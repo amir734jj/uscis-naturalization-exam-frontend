@@ -1,8 +1,13 @@
+export type Question = string;
+export type Answer = string;
+export type LongAnswer = string[];
+
 export class MultipleChoiceQuestion {
-    question: string;
-    answer: string;
-    choices: string[];
+    question: Question;
+    answer: Answer;
+    choices: Answer[];
     index: number;
+    longAnswer: LongAnswer;
 }
 
 export class MultipleChoiceAnswer {

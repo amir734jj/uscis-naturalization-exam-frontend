@@ -1,10 +1,12 @@
-<div class="panel panel-default">
+<div class="panel panel-default panel-full-width">
     <div class="panel-heading">
         <h4>(#{{question.index}}) {{question.question}}</h4>
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-6">
+                <h5>Choices:</h5>
+
                 <div class="list-group">
                     <button *ngFor="let answerVal of question.choices"
                             class="list-group-item {{cssClassHelper(answerVal)}}"
@@ -18,19 +20,33 @@
                     <button type="button" class="btn btn-primary" (click)="nextQuestion().then()">Next Question</button>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="pull-right">
-                    <div class="list-group">
-                        <li type="button" class="list-group-item">
-                            Total questions answered: {{timeLine.length}}
-                        </li>
-                        <li type="button" class="list-group-item">
-                            Correct answers: {{status().correct}}
-                        </li>
-                        <li type="button" class="list-group-item">
-                            In-Correct answers: {{status().incorrect}}
-                        </li>
-                    </div>
+
+            <div class="col-sm-3" *ngIf="question.answer && answer.answerVal && question.longAnswer">
+                <h5>Full answer:</h5>
+
+                <div class="list-group">
+                    <li *ngFor="let i = index; let answer of question.longAnswer;" class="list-group-item">
+                        #{{i + 1}}) {{answer}}
+                    </li>
+                </div>
+            </div>
+
+            <div class="col-sm-3" *ngIf="!(question.answer && answer.answerVal && question.longAnswer)">
+            </div>
+
+            <div class="col-sm-3">
+                <h5>Score info:</h5>
+
+                <div class="list-group">
+                    <li type="button" class="list-group-item">
+                        Total questions answered: {{timeLine.length}}
+                    </li>
+                    <li type="button" class="list-group-item">
+                        Correct answers: {{status().correct}}
+                    </li>
+                    <li type="button" class="list-group-item">
+                        In-Correct answers: {{status().incorrect}}
+                    </li>
                 </div>
             </div>
         </div>

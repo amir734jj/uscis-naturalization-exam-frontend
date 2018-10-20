@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {MultipleChoiceQuestion} from '../models/MultipleChoice';
+import {Answer, LongAnswer, MultipleChoiceQuestion, Question} from '../models/MultipleChoice';
 
 const material: {
-    question: string,
-    answer: string[]
+    question: Question,
+    answer: LongAnswer
 }[] = [
   {
     'question': 'What is the supreme law of the land?',
@@ -790,7 +790,7 @@ export class MaterialUtility {
         return array;
     }
 
-    static randomInRange(exclude: number = -1) {
+    static randomInRange(exclude: number = -1): number {
         const index = Math.floor(Math.random() * material.length);
 
         if (index === exclude) {
@@ -800,7 +800,7 @@ export class MaterialUtility {
         }
     }
 
-    randomItemInRange(previousIndex: number = -1): { question: string; answer: string, index: number } {
+    randomItemInRange(previousIndex: number = -1): { question: string; answer: Answer, index: number, longAnswer: LongAnswer } {
       let index: number;
 
       if (previousIndex === -1) {
@@ -809,24 +809,31 @@ export class MaterialUtility {
         index = (previousIndex + 1) % material.length;
       }
 
-      return {...material[index], index};
+      return {
+        question: material[index].question,
+        answer: material[index].answer[0],
+        index: index,
+        longAnswer: material[index].answer
+      };
     }
 
     getRandomQuestion(choiceCount: number = 4): MultipleChoiceQuestion {
         const index = MaterialUtility.randomInRange();
         const item = material[index];
 
+        const choices = MaterialUtility.shuffle(
+          Array.from({ length: choiceCount - 1 }, (v, i) => i)
+            .map(() => MaterialUtility.randomInRange(index))
+            .map(i => material[i])
+            .map(m => m.answer[0])
+            .concat([ item.answer[0] ]));
+
         return {
-          index,
+          index: index,
           question: item.question,
-          answer: item.answer,
-          choices: MaterialUtility.shuffle(
-              Array.from({ length: choiceCount - 1 }, (v, i) => i)
-              .map(() => MaterialUtility.randomInRange(index))
-              .map(i => material[i])
-              .map(m => m.answer)
-              .concat([ item.answer ])
-          )
+          answer: item.answer[0],
+          choices: choices,
+          longAnswer: item.answer
         };
     }
 }

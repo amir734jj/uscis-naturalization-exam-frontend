@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {API_ADDRESS} from '../constants/api.routes';
-import {ExportInfo} from "../models/ScoreInfo";
+import {ScoreInfo} from '../models/ScoreInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,10 @@ export class ScoreService {
     return result;
   }
 
-  async scoreInfo(offset: number): Promise<ExportInfo> {
+  async scoreInfo(): Promise<ScoreInfo> {
     const uri = `${this.host}`;
 
-    const result: ExportInfo = await this.httpClient.get<ExportInfo>(uri).toPromise();
+    const result: ScoreInfo = await this.httpClient.get<ScoreInfo>(uri).toPromise();
 
     return result;
   }
