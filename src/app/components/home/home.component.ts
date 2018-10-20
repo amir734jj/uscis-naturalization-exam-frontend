@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ScoreService} from '../../services/score.service';
 import {ScoreInfo} from '../../models/ScoreInfo';
 import {AuthenticationUtility} from '../../utilities/authentication.utility';
@@ -8,17 +8,25 @@ import {AuthenticationUtility} from '../../utilities/authentication.utility';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterContentInit {
   scoreInfo: ScoreInfo;
   authenticated: boolean;
 
   constructor(private scoreService: ScoreService, private authenticationUtility: AuthenticationUtility) {
     this.authenticated = false;
+
+    this.authenticationUtility.addOnChangeHandler(x => {
+      this.authenticated = x;
+    });
   }
 
   async ngOnInit() {
-    this.updateScoreInfo().then();
-    this.authenticated = await this.authenticationUtility.getIsAuthenticated();
+    await this.updateScoreInfo();
+    this.authenticated = this.authenticationUtility.getIsAuthenticated();
+  }
+
+  async ngAfterContentInit() {
+    await this.updateScoreInfo();
   }
 
   async updateScoreInfo() {
