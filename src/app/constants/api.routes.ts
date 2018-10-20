@@ -3,7 +3,7 @@ import {environment} from '../../environments/environment';
 let PORT: number;
 let HOST: string;
 
-if (environment.production) {
+if (true || environment.production) {
     PORT = 80;
     HOST = '';
 } else {

@@ -1,4 +1,4 @@
 export class ScoreInfo {
-  score: Number;
+  score: number;
   board: Map<string, number>;
 }

@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ScoreService} from '../../services/score.service';
-import {ScoreInfo} from '../../models/ScoreInfo';
 import {AuthenticationUtility} from '../../utilities/authentication.utility';
 
 @Component({
@@ -9,7 +8,13 @@ import {AuthenticationUtility} from '../../utilities/authentication.utility';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterContentInit {
-  scoreInfo: ScoreInfo;
+  scoreInfo: {
+    score: number,
+    board: {
+      fullname: string,
+      score: number
+    }[]
+  };
   authenticated: boolean;
 
   constructor(private scoreService: ScoreService, private authenticationUtility: AuthenticationUtility) {
@@ -26,10 +31,23 @@ export class HomeComponent implements OnInit, AfterContentInit {
   }
 
   async ngAfterContentInit() {
+    this.authenticated = this.authenticationUtility.getIsAuthenticated();
     await this.updateScoreInfo();
   }
 
   async updateScoreInfo() {
-    this.scoreInfo = await this.scoreService.scoreInfo();
+    const result = await this.scoreService.scoreInfo();
+
+    const scores: { fullname: string; score: number }[] = Object.keys(result.board).map(key => {
+      return {
+        fullname: key,
+        score: result.board[key] as number
+      };
+    });
+
+    this.scoreInfo = result ? {
+      score: result.score,
+      board: scores
+    } : null;
   }
 }

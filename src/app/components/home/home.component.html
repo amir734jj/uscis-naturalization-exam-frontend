@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="authenticated && scoreInfo && scoreInfo.board && scoreInfo.score">
+    <div *ngIf="authenticated && scoreInfo">
         <h4>
             Your current score: <strong>{{scoreInfo.score}}</strong>
         </h4>
@@ -14,9 +14,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let info of scoreInfo.board | keyvalue">
-                    <td>{{info.key}}</td>
-                    <td>{{info.value}}</td>
+                <tr *ngFor="let info of scoreInfo.board">
+                    <td>{{info.fullname}}</td>
+                    <td>{{info.score}}</td>
                 </tr>
                 </tbody>
             </table>

@@ -15,11 +15,11 @@ export class LearningService {
   }
 
   toStreamUrl(index: number) {
-    return `${this.host}/audio/track (${index}).mp3`;
+    return `${this.host}/audio/track-${index}.mp3`;
   }
 
   toImageUrl(index: number) {
-    return `${this.host}/images/slide (${index}).jpg`;
+    return `${this.host}/images/image-${index}.jpg`;
   }
 
   async downloadTrack(index: number) {
