@@ -71,7 +71,7 @@ export class LearningComponent implements OnInit {
     if (this.timeLine.length === 0) {
       this.currentTrack = this.materialUtility.randomItemInRange(-1);
       this.timeLine.push(this.currentTrack);
-    } else if (this.index + 1 === this.timeLine.length) {
+    } else if (this.index  === this.timeLine.length || this.index + 1 === this.timeLine.length) {
       this.timeLine.push(this.currentTrack);
       this.currentTrack = this.materialUtility
         .randomItemInRange(!this.randomize && this.currentTrack ? this.currentTrack.index : undefined);
@@ -80,6 +80,9 @@ export class LearningComponent implements OnInit {
       this.index++;
       this.currentTrack = this.timeLine[this.index];
     }
+
+    const indices = this.timeLine.map(obj => obj.index);
+    this.timeLine = this.timeLine.filter((v, i) => indices.indexOf(v.index) === i);
 
     this.repeatCount.soFar = 0;
     this.stopTrack();

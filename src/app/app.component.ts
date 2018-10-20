@@ -8,7 +8,7 @@ import {AuthenticationUtility} from './utilities/authentication.utility';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'uscis-naturalization-exam-frontend';
+  toggled = false;
 
   constructor(private identityService: IdentityService, private authenticationUtility: AuthenticationUtility) { }
 
